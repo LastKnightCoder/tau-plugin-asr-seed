@@ -1,0 +1,28 @@
+{
+  "name": "tau-plugin-asr-seed",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "pnpm check && node build.mjs",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "dependencies": {
+    "@tau/plugins": "npm:@xiongtao.xt/tau-plugins@0.43.0",
+    "@tau/ui": "npm:@xiongtao.xt/tau-ui@0.5.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "fflate": "0.8.2"
+  },
+  "devDependencies": {
+    "adm-zip": "0.5.16",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "typescript": "5.8.3",
+    "esbuild": "0.25.12",
+    "vitest": "3.2.7"
+  }
+}
