@@ -2,11 +2,11 @@
 
 此仓库只实现 Seed 协议、账号表单和结果归约。麦克风、PCM 转换、连接传输、输入目标与持久设置由 Tau 宿主提供。
 
-## 接口与候选版本
+## 接口与版本
 
-代码依赖 SDK 0.43.0 的 context.asr、context.websocket 和 asrConfig。此源码版本属于候选接入，不代表 SDK 已发布 npm 或插件已上架。SDK 未发布时，在仓库外副本安装主仓库生成的 SDK tarball 再构建，不提交本机路径或把候选包冒充 npm 发行物。
+代码依赖 SDK 0.43.0 的 context.asr、context.websocket 和 asrConfig。正式发行使用 npm 注册表中的精确版本与 pnpm-lock.yaml，不使用本机依赖路径。
 
-发布 SDK 后，按 package.json 的 npm 别名生成并提交 pnpm-lock.yaml，执行冻结安装再发行本插件；未取得可下载的正式 SDK 时不伪造 registry 锁文件。当前不创建发行标签，不上传插件中心。
+先校验 SDK 可从 npm 安装，再冻结安装、测试、构建并推送版本标签。当前使用 GitHub Release 上传 ZIP，再在插件中心提交同一份 ZIP 并绑定公开源码仓库。仓库尚未启用自动发行工作流；后续获得 workflow 权限后可接入模板的 GitHub Actions OIDC 流程。候选验证仍只在仓库外注入 tarball，不伪造注册表记录。
 
 ## 运行
 

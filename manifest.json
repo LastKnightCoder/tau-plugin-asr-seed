@@ -17,10 +17,10 @@
       "minAppVersion": "0.59.5"
     },
     "android": {
-      "minAppVersion": "0.2.6"
+      "minAppVersion": "0.2.7"
     },
     "ios": {
-      "minAppVersion": "0.2.6"
+      "minAppVersion": "0.2.7"
     }
   }
 }
