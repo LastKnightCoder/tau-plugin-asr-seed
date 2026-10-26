@@ -13,17 +13,31 @@ export default definePlugin({
       });
       context.settings.register({
         id: "asr",
-        title: "语音识别账号",
+        title: "豆包语音",
         target: "asr",
         models: [{ id: MODEL_ID }],
         form: {
-          groups: [{ title: "语音识别账号", fields: [
-            { key: "apiKey", label: "豆包语音 API Key", type: "secret" },
-            { key: "resourceId", label: "计费资源", type: "choice", default: "volc.seedasr.sauc.duration", options: [
-              { value: "volc.seedasr.sauc.duration", label: "按时长" },
-              { value: "volc.seedasr.sauc.concurrent", label: "按并发" },
-            ] },
-          ] }],
+          groups: [
+            {
+              title: "账号",
+              description: "需在豆包语音控制台开通「流式语音识别 2.0」。录音会发送到豆包语音服务识别。",
+              link: { label: "控制台", url: "https://console.volcengine.com/speech/new/" },
+              fields: [
+                { key: "apiKey", label: "API Key", type: "secret", description: "在控制台「API Key 管理」中创建" },
+                {
+                  key: "resourceId",
+                  label: "计费资源",
+                  type: "choice",
+                  default: "volc.seedasr.sauc.duration",
+                  description: "需与控制台开通的资源一致",
+                  options: [
+                    { value: "volc.seedasr.sauc.duration", label: "按时长", description: "按识别音频时长计费，适合个人日常输入" },
+                    { value: "volc.seedasr.sauc.concurrent", label: "按并发", description: "按购买的并发路数计费，需在控制台单独开通" },
+                  ],
+                },
+              ],
+            },
+          ],
           beforeSave: async values => parseConfig(values),
         },
       });
