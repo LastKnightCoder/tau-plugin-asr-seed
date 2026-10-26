@@ -4,9 +4,9 @@
 
 ## 接口与版本
 
-代码依赖 SDK 0.43.0 的 context.asr、context.websocket 和 asrConfig。正式发行使用 npm 注册表中的精确版本与 pnpm-lock.yaml，不使用本机依赖路径。
+代码依赖 SDK 0.47.0 的 context.asr、context.websocket 和声明式 form。正式发行使用 npm 注册表中的精确版本与 pnpm-lock.yaml，不使用本机依赖路径。
 
-先校验 SDK 可从 npm 安装，再冻结安装、测试、构建并推送版本标签。当前使用 GitHub Release 上传 ZIP，再在插件中心提交同一份 ZIP 并绑定公开源码仓库。仓库尚未启用自动发行工作流；后续获得 workflow 权限后可接入模板的 GitHub Actions OIDC 流程。候选验证仍只在仓库外注入 tarball，不伪造注册表记录。
+先校验 SDK 可从 npm 安装，再冻结安装、测试、构建。main 推送执行验证；同步递增 package.json、manifest.json 和 CHANGELOG 后推送 v 版本标签，GitHub Actions 构建 ZIP、发布 GitHub Release，并经 OIDC 提交到已绑定的插件中心。候选验证仍只在仓库外注入 tarball，不伪造注册表记录。
 
 ## 运行
 
