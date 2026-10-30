@@ -66,6 +66,9 @@ async function fixture(platform: "desktop" | "android" | "ios", mode = "normal")
     open: async (_id: string, request: any) => {
       handshake = request;
       if (mode === "handshake-error") throw new Error("private detail");
+      if (mode === "auth-error") throw new Error("WebSocket 握手失败（HTTP 401）");
+      if (mode === "permission-error") throw new Error("WebSocket 握手失败（HTTP 403）");
+      if (mode === "tls-error") throw new Error("WebSocket TLS 安全连接失败");
       return { protocol: "", extensions: "" };
     },
     send: async (_id: string, message: Uint8Array) => {
@@ -160,6 +163,19 @@ describe("真实构建产物接入宿主", () => {
           await test.session.endInput();
         }
         await expect(test.session.result).rejects.toThrow();
+      } finally {
+        await test.host.dispose();
+      }
+    });
+  for (const [mode, message] of [
+    ["auth-error", "服务鉴权失败（HTTP 401）"],
+    ["permission-error", "服务拒绝访问（HTTP 403）"],
+    ["tls-error", "WebSocket TLS 安全连接失败"],
+  ])
+    it(`${mode}：保留宿主脱敏后的连接失败原因`, async () => {
+      const test = await fixture("android", mode);
+      try {
+        await expect(test.session.result).rejects.toThrow(message);
       } finally {
         await test.host.dispose();
       }

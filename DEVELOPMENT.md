@@ -32,6 +32,8 @@ WebSocket、SDK 的任务控制器由宿主提供，因此协议与结果纯函�
 
 连接使用 `context.websocket.connect(url, [], { headers, signal })`，同步取得 CONNECTING 连接。通过 onopen/onmessage/onerror/onclose 观察连接；binaryType 固定 arraybuffer，send/close 均返回 void，背压由宿主管理。finish 发结束标记后等服务端末包，不用关闭连接代替完成识别。
 
+连接失败优先展示宿主 `error` 事件的脱敏 `message`，区分握手 HTTP 拒绝、TLS、网络连接和超时；宿主未提供诊断时使用通用提示。协议错误仍只展示错误码，不回显服务端正文。
+
 在已构建的仓库外副本中运行：
 
 ```bash

@@ -123,8 +123,15 @@ export function createSeedASR(
                 rejectOpen(error);
                 reject(error);
               };
-              socket.onerror = () =>
-                fail(new ASRError("unavailable", "语音连接失败，请检查网络与账号"));
+              socket.onerror = event =>
+                fail(
+                  new ASRError(
+                    "unavailable",
+                    "message" in event && typeof event.message === "string" && event.message
+                      ? event.message
+                      : "语音连接失败，请检查网络与账号"
+                  )
+                );
               socket.onclose = () => fail(new ASRError("internal", "语音服务在返回最终文字前断开"));
               socket.onmessage = event => {
                 try {
