@@ -4,7 +4,7 @@
 
 ## 接口与版本
 
-代码依赖 SDK 0.47.0 的 context.asr、context.websocket 和声明式 form。正式发行使用 npm 注册表中的精确版本与 pnpm-lock.yaml，不使用本机依赖路径。
+代码依赖 SDK 0.48.0 的 context.asr、context.websocket 和声明式 form。正式发行使用 npm 注册表中的精确版本与 pnpm-lock.yaml，不使用本机依赖路径。
 
 先校验 SDK 可从 npm 安装，再冻结安装、测试、构建。main 推送执行验证；同步递增 package.json、manifest.json 和 CHANGELOG 后推送 v 版本标签，GitHub Actions 构建 ZIP、发布 GitHub Release，并经 OIDC 提交到已绑定的插件中心。候选验证仍只在仓库外注入 tarball，不伪造注册表记录。
 

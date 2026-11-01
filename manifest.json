@@ -1,17 +1,18 @@
 {
   "id": "tau.asr-seed",
   "name": "豆包语音识别",
-  "description": "边说边转成文字，停止后填入草稿。",
+  "description": "中英文语音输入与录音转文字，支持带时间的文字稿。",
   "categories": [
     "voice"
   ],
   "keywords": [
     "语音输入",
+    "录音转文字",
     "ASR",
     "Seed",
     "豆包"
   ],
-  "version": "0.1.3",
+  "version": "0.1.4",
   "targets": {
     "desktop": {
       "minAppVersion": "0.60.2"
