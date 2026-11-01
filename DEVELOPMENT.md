@@ -28,6 +28,15 @@ pnpm build
 
 WebSocket、SDK 的任务控制器由宿主提供，因此协议与结果纯函数可独立单测，提供方整体在宿主集成测试中装配真实 SDK 验证。
 
+## 录音文件识别
+
+`probe` 声明 `fileMimeTypes` 为两个版本共同支持的 `audio/ogg`（Opus）、`audio/mpeg`、`audio/wav`，宿主只交其中一种；请求体的 `format` / `codec` 按交来的 `mimeType` 填。有 `audio.url` 时先调标准版：`POST /api/v3/auc/bigmodel/submit` 后轮询 `/query`，Resource-Id `volc.seedasr.auc`，状态码在响应头 `X-Api-Status-Code`（`20000000` 完成，`20000001` / `20000002` 处理中或排队，`20000003` 静音）。标准版 403、提交或查询失败且未取消时改用极速版：`POST /api/v3/auc/bigmodel/recognize/flash`，Resource-Id `volc.bigasr.auc_turbo`，音频读 `open()` 后 base64 放进 `audio.data`。不报 `maxDurationMs`：标准版不限时长，极速版的 100 MB 在上传前检查、超出抛 `invalid-input`，2 小时上限由服务端判断。
+
+`ASRAudioFile.url` 在 SDK 0.48.0 的类型里还没有，代码按可选字段窄读取。协议逻辑 `recognizeSeedFile` 不依赖 SDK 运行时，`src/file.test.ts` 用合成响应覆盖轮询、回落极速版与取消。
+
+- [录音文件识别标准版 API](https://docs.volcengine.com/docs/doubao-voice/large-model-recording-file-recognition-standard-version-api?lang=zh)
+- [录音文件识别极速版 API](https://docs.volcengine.com/docs/6561/1631584)
+
 ## WebSocket 与宿主集成测试
 
 连接使用 `context.websocket.connect(url, [], { headers, signal })`，同步取得 CONNECTING 连接。通过 onopen/onmessage/onerror/onclose 观察连接；binaryType 固定 arraybuffer，send/close 均返回 void，背压由宿主管理。finish 发结束标记后等服务端末包，不用关闭连接代替完成识别。

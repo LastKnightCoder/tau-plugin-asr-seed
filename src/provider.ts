@@ -7,6 +7,7 @@ import {
 } from "@tau/plugins";
 import { encodeRequest, decodeResponse } from "./protocol";
 import { SeedResults } from "./results";
+import { FILE_MIME_TYPES, transcribeSeedFile } from "./file";
 
 export const MODEL_ID = "seed-asr-2.0";
 export function parseConfig(value: JsonValue) {
@@ -25,6 +26,7 @@ export function parseConfig(value: JsonValue) {
 }
 export function createSeedASR(
   websocket: PluginWebSocket,
+  fetch: typeof globalThis.fetch,
   value: JsonValue,
   modelId: string
 ): ASRInstance {
@@ -41,14 +43,36 @@ export function createSeedASR(
     },
     maxDurationMs: 120000,
   };
+  // 不报 maxDurationMs：标准版不限时长，极速版的上限取决于这次有没有地址，在 transcribeFile 里判断
+  const fileCapabilities = {
+    execution: "remote" as const,
+    textUpdates: "final-only" as const,
+    timestamps: "segment" as const,
+    speakerLabels: false,
+    acceptedAudio: { fileMimeTypes: FILE_MIME_TYPES },
+  };
   return {
+    async transcribeFile(request, options) {
+      if (modelId !== MODEL_ID) throw new Error("识别模型不受支持");
+      return transcribeSeedFile(fetch, parseConfig(stored), request, options);
+    },
     async probe(request, signal) {
       signal.throwIfAborted();
-      if (
-        request.input !== "stream" ||
-        !["zh-CN", "zh", "en-US", "en", "auto"].includes(request.language)
-      )
-        return { ...capabilities, state: "unsupported", reason: "此提供方仅支持中英实时语音输入" };
+      if (!["zh-CN", "zh", "en-US", "en", "auto"].includes(request.language))
+        return { ...capabilities, state: "unsupported", reason: "此提供方仅支持中英识别" };
+      if (request.input === "file") {
+        try {
+          if (modelId !== MODEL_ID) throw new Error("请保存识别模型配置");
+          parseConfig(stored);
+          return { ...fileCapabilities, state: "ready" };
+        } catch (error) {
+          return {
+            ...fileCapabilities,
+            state: "needs-config",
+            reason: error instanceof Error ? error.message : "账号未配置",
+          };
+        }
+      }
       try {
         if (modelId !== MODEL_ID) throw new Error("请保存识别模型配置");
         parseConfig(stored);

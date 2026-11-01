@@ -9,7 +9,8 @@ export default definePlugin({
       context.asr.register({
         id: context.pluginId,
         name: __PLUGIN_META__.name,
-        create: (config, modelId) => createSeedASR(context.websocket, config, modelId),
+        create: (config, modelId) =>
+          createSeedASR(context.websocket, context.fetch, config, modelId),
       });
       context.settings.register({
         id: "asr",
@@ -20,7 +21,8 @@ export default definePlugin({
           groups: [
             {
               title: "账号",
-              description: "需在豆包语音控制台开通「流式语音识别 2.0」。录音会发送到豆包语音服务识别。",
+              description:
+                "语音输入需开通「流式语音识别 2.0」；录音转文字需开通「录音文件识别」标准版或极速版（任一即可，标准版不限时长）。音频会发送到豆包语音服务识别。",
               link: { label: "控制台", url: "https://console.volcengine.com/speech/new/" },
               fields: [
                 { key: "apiKey", label: "API Key", type: "secret", description: "在控制台「API Key 管理」中创建" },
