@@ -1,9 +1,11 @@
+import { messages } from "./i18n";
 import { definePlugin } from "@tau/plugins";
 import { createSeedASR, MODEL_ID, parseConfig } from "./provider";
 declare const __PLUGIN_META__: { id: string; name: string; version: string };
 
 export default definePlugin({
   ...__PLUGIN_META__,
+  i18n: messages,
   create: () => ({
     activate(context) {
       context.asr.register({
@@ -20,21 +22,36 @@ export default definePlugin({
         form: {
           groups: [
             {
-              title: "账号",
-              description:
-                "语音输入需开通「流式语音识别 2.0」；录音转文字需开通「录音文件识别」标准版或极速版（任一即可，标准版不限时长）。音频会发送到豆包语音服务识别。",
-              link: { label: "控制台", url: "https://console.volcengine.com/speech/new/" },
+              title: messages.ref("account.title"),
+              description: messages.ref("account.description"),
+              link: {
+                label: messages.ref("account.console"),
+                url: "https://console.volcengine.com/speech/new/",
+              },
               fields: [
-                { key: "apiKey", label: "API Key", type: "secret", description: "在控制台「API Key 管理」中创建" },
+                {
+                  key: "apiKey",
+                  label: messages.ref("apiKey.label"),
+                  type: "secret",
+                  description: messages.ref("apiKey.description"),
+                },
                 {
                   key: "resourceId",
-                  label: "计费资源",
+                  label: messages.ref("resource.label"),
                   type: "choice",
                   default: "volc.seedasr.sauc.duration",
-                  description: "需与控制台开通的资源一致",
+                  description: messages.ref("resource.description"),
                   options: [
-                    { value: "volc.seedasr.sauc.duration", label: "按时长", description: "按识别音频时长计费，适合个人日常输入" },
-                    { value: "volc.seedasr.sauc.concurrent", label: "按并发", description: "按购买的并发路数计费，需在控制台单独开通" },
+                    {
+                      value: "volc.seedasr.sauc.duration",
+                      label: messages.ref("resource.duration.label"),
+                      description: messages.ref("resource.duration.description"),
+                    },
+                    {
+                      value: "volc.seedasr.sauc.concurrent",
+                      label: messages.ref("resource.concurrent.label"),
+                      description: messages.ref("resource.concurrent.description"),
+                    },
                   ],
                 },
               ],

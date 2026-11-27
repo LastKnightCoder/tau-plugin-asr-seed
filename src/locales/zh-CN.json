@@ -1,0 +1,13 @@
+{
+  "account.title": "账号",
+  "account.description": "语音输入需开通「流式语音识别 2.0」；录音转文字需开通「录音文件识别」标准版或极速版（任一即可，标准版不限时长）。音频会发送到豆包语音服务识别。",
+  "account.console": "控制台",
+  "apiKey.label": "API Key",
+  "apiKey.description": "在控制台「API Key 管理」中创建",
+  "resource.label": "计费资源",
+  "resource.description": "需与控制台开通的资源一致",
+  "resource.duration.label": "按时长",
+  "resource.duration.description": "按识别音频时长计费，适合个人日常输入",
+  "resource.concurrent.label": "按并发",
+  "resource.concurrent.description": "按购买的并发路数计费，需在控制台单独开通"
+}

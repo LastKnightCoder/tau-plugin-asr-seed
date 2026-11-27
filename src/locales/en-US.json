@@ -1,0 +1,13 @@
+{
+  "account.title": "Account",
+  "account.description": "Voice input requires Streaming Speech Recognition 2.0. Recording transcription requires the standard or fast Recorded File Recognition service (either is sufficient; the standard service has no duration limit). Audio is sent to Doubao Speech for recognition.",
+  "account.console": "Console",
+  "apiKey.label": "API Key",
+  "apiKey.description": "Create a key under API Key Management in the console",
+  "resource.label": "Billing resource",
+  "resource.description": "Must match the resource enabled in the console",
+  "resource.duration.label": "By duration",
+  "resource.duration.description": "Billed by recognized audio duration; suitable for everyday personal use",
+  "resource.concurrent.label": "By concurrency",
+  "resource.concurrent.description": "Billed by purchased concurrent channels; enable this separately in the console"
+}

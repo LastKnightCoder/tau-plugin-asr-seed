@@ -1,6 +1,6 @@
 # 插件开发约定
 
-- SDK API 从 @tau/plugins 导入，UI 从 @tau/ui 导入；当前要求 SDK 0.48.0。
+- SDK API 从 @tau/plugins 导入，UI 从 @tau/ui 导入；当前要求 SDK 0.63.0。
 - 协议只放本仓库，禁止将 Seed 地址、封包或账号字段放进 Tau 宿主。
 - 浏览器运行，不引入 Node 依赖；WebSocket 使用 context.websocket。
 - 配置声明 form，由宿主在插件页保存，不写 context.storage，不提交真实密钥、录音或正文日志。

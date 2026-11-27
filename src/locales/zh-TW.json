@@ -1,0 +1,13 @@
+{
+  "account.title": "帳號",
+  "account.description": "語音輸入需開通「串流語音辨識 2.0」；錄音轉文字需開通「錄音檔案辨識」標準版或極速版（任一即可，標準版不限時長）。音訊會傳送至豆包語音服務辨識。",
+  "account.console": "控制台",
+  "apiKey.label": "API Key",
+  "apiKey.description": "在控制台「API Key 管理」中建立",
+  "resource.label": "計費資源",
+  "resource.description": "需與控制台開通的資源一致",
+  "resource.duration.label": "按時長",
+  "resource.duration.description": "依辨識音訊時長計費，適合個人日常輸入",
+  "resource.concurrent.label": "按並行數",
+  "resource.concurrent.description": "依購買的並行通道數計費，需在控制台另外開通"
+}

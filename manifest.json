@@ -12,16 +12,47 @@
     "Seed",
     "豆包"
   ],
-  "version": "0.1.4",
+  "i18n": {
+    "zh-TW": {
+      "name": "豆包語音辨識",
+      "description": "中英文語音輸入與錄音轉文字，支援附時間戳記的逐字稿。",
+      "keywords": [
+        "語音輸入",
+        "錄音轉文字",
+        "語音辨識",
+        "ASR",
+        "Seed",
+        "豆包"
+      ]
+    },
+    "en-US": {
+      "name": "Doubao Speech Recognition",
+      "description": "Chinese and English voice input and recording transcription with timestamped transcripts.",
+      "keywords": [
+        "voice input",
+        "transcription",
+        "speech-to-text",
+        "ASR",
+        "Seed",
+        "Doubao"
+      ]
+    }
+  },
+  "locales": [
+    "zh-CN",
+    "zh-TW",
+    "en-US"
+  ],
+  "version": "0.1.5",
   "targets": {
     "desktop": {
-      "minAppVersion": "0.60.2"
+      "minAppVersion": "0.68.0"
     },
     "android": {
-      "minAppVersion": "0.2.9"
+      "minAppVersion": "0.6.0"
     },
     "ios": {
-      "minAppVersion": "0.2.9"
+      "minAppVersion": "0.6.0"
     }
   }
 }
